@@ -1,0 +1,8 @@
+# github.com/dghubble/oauth1 v0.5.0
+github.com/dghubble/oauth1
+# github.com/tumblr/tumblr.go v1.0.0
+github.com/tumblr/tumblr.go
+# github.com/tumblr/tumblrclient.go v1.0.0
+github.com/tumblr/tumblrclient.go
+# golang.org/x/net v0.0.0-20181201002055-351d144fa1fc
+golang.org/x/net/context
