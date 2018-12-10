@@ -24,6 +24,9 @@ _testmain.go
 *.test
 *.prof
 
+# macos
+.DS_Store
+
 # ides
 .idea
 .vscode
