@@ -52,26 +52,41 @@ func (g *gPhotoPost) GetResources() []string {
 	return photos
 }
 
+type noopExtractor struct {
+}
+
+func (*noopExtractor) GetResources() []string {
+	return nil
+}
+
 func GetExtractor(post PostInterface) PostResourceExtractor {
+	var extractor PostResourceExtractor
+	noop := &noopExtractor{}
 	switch post.(type) {
 	case *TextPost:
 		text := &gTextPost{post.(*TextPost)}
-		return text
+		extractor = text
+		post = text
 	case *AnswerPost, *ChatPost, *LinkPost, *QuotePost:
+		extractor = noop
 	case *PhotoPost:
 		photo := &gPhotoPost{post.(*PhotoPost)}
-		return photo
+		extractor = photo
 	case *AudioPost:
 		audio := post.(*AudioPost)
 		println("audio url: ", audio.AudioUrl)
 		println("audio source url: ", audio.AudioSourceUrl)
 		println("caption: ", audio.Caption)
 		println("summary: ", audio.Summary)
+		extractor = noop
 	case *VideoPost:
 		video := &gVideoPost{post.(*VideoPost)}
-		return video
+		extractor = video
 	default:
 		panic(post)
 	}
-	return nil
+
+	println(post.GetSelf().Summary)
+
+	return extractor
 }

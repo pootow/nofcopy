@@ -18,7 +18,7 @@ func (d *downloadPost) Run() {
 	for _, resourceUrl := range resourceUrls {
 		err := common.Download(resourceUrl)
 		if err != nil {
-			log.Println("error when downloading url: ", resourceUrl)
+			log.Println("error when downloading url: ", resourceUrl, err)
 			return
 		}
 	}

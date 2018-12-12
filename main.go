@@ -39,7 +39,7 @@ func main() {
 		}
 	case "gd":
 		if len(flag.Args()) > 0 {
-			gomblr.DownloadPosts(flag.Arg(0))
+			gomblr.DownloadPosts(flag.Arg(0), flag.Arg(1))
 		}
 	}
 

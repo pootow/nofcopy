@@ -24,14 +24,15 @@ func NewDownloadPosts(count int, scheduler task.WorkScheduler) *DownloadPosts {
 }
 
 func (d *DownloadPosts) Run() {
-	for {
+	for i := 0; i < d.Count; i++ {
 		posts, err := d.lockPosts()
 		if err != nil {
 			log.Println("downloading error when lock post: ", err)
 			return
 		}
 		for _, post := range posts {
-			d.scheduler.Add(post)
+			//d.scheduler.Add(post)
+			post.Run()
 		}
 	}
 }

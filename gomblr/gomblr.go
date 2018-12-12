@@ -18,7 +18,7 @@ func GetBlogPosts(blogs []string) {
 	st.Wait()
 }
 
-func DownloadPosts(concurrency string) {
+func DownloadPosts(concurrency string, count string) {
 	st := task.NewSimpleTask()
 
 	con64, err := strconv.ParseInt(concurrency, 10, 0)
@@ -27,7 +27,11 @@ func DownloadPosts(concurrency string) {
 	}
 
 	con := int(con64)
-	st.Add(works.NewDownloadPosts(con, st))
+	countInt, err := strconv.Atoi(count)
+
+	for i := 0; i < con; i++ {
+		st.Add(works.NewDownloadPosts(countInt, st))
+	}
 
 	st.Wait()
 }

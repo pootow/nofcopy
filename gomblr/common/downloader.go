@@ -40,7 +40,7 @@ func Download(targetUrl string) error {
 		return err
 	} else {
 		if downloaded {
-			log.Println(filePath, " downloaded.")
+			log.Println(filePath, " already downloaded.")
 			return nil
 		}
 	}
