@@ -1,7 +1,6 @@
 package common
 
 import (
-	"github.com/pootow/nofcopy/task"
 	"github.com/tumblr/tumblr.go"
 	"io"
 	"log"
@@ -9,7 +8,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-	"strconv"
 )
 
 func Download(targetUrl string) error {
@@ -77,25 +75,11 @@ func targetFileDownloaded(filePath string, length int64) (bool, error) {
 	return false, nil
 }
 
-type downloadPosts struct {
-	index int
-}
-
-func (d *downloadPosts) Run() {
-	posts, err := lockPosts()
-	if err != nil {
-		log.Println(err)
-	}
-	for _, post := range posts {
-		downloadPost(post)
-	}
-}
-
-func downloadPost(postInterface tumblr.PostInterface) {
+func DownloadPost(postInterface tumblr.PostInterface) {
 	panic("implement this")
 }
 
-func lockPosts() ([]tumblr.PostInterface, error) {
+func LockPosts() ([]tumblr.PostInterface, error) {
 	count := 3
 	postInterfaces := make([]tumblr.PostInterface, count)
 	postPaths, err := getSomePostFile(count)
@@ -126,22 +110,4 @@ func lockPostPath(postPath string) (string, error) {
 
 func getSomePostFile(count int) ([]string, error) {
 	panic("implement this")
-}
-
-func DownloadPosts(concurrency string) {
-	st := task.NewSimpleTask()
-
-	con64, err := strconv.ParseInt(concurrency, 10, 0)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	con := int(con64)
-	for i := 0; i < con; i++ {
-		st.Add(&downloadPosts{
-			i,
-		})
-	}
-
-	st.Wait()
 }

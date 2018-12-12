@@ -26,7 +26,6 @@ func (l *likes) Run() {
 
 }
 
-
 func (l *likes) getMyLikes(before string, limit int) *Likes {
 	params := url.Values{}
 	if before != "" {

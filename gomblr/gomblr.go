@@ -4,7 +4,8 @@ import (
 	. "github.com/pootow/nofcopy/gomblr/client"
 	"github.com/pootow/nofcopy/gomblr/works"
 	"github.com/pootow/nofcopy/task"
-	. "github.com/tumblr/tumblr.go"
+	"log"
+	"strconv"
 )
 
 func GetBlogPosts(blogs []string) {
@@ -12,10 +13,23 @@ func GetBlogPosts(blogs []string) {
 	client := NewGomblrClient()
 
 	for _, blog := range blogs {
-		st.Add(&works.BlogPosts{
-			client,
-			blog,
-		})
+		st.Add(works.NewBlogPosts(client, blog))
 	}
+	st.Wait()
+}
+
+func DownloadPosts(concurrency string) {
+	st := task.NewSimpleTask()
+
+	con64, err := strconv.ParseInt(concurrency, 10, 0)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	con := int(con64)
+	for i := 0; i < con; i++ {
+		st.Add(works.NewDownloadPosts(i))
+	}
+
 	st.Wait()
 }

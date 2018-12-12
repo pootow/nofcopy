@@ -12,6 +12,10 @@ type BlogPosts struct {
 	blogName string
 }
 
+func NewBlogPosts(client *client.GomblrClient, blogName string) *BlogPosts {
+	return &BlogPosts{client: client, blogName: blogName}
+}
+
 func (b *BlogPosts) Run() {
 	offset := ""
 	for {
