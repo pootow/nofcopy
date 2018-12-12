@@ -9,7 +9,7 @@ import (
 )
 
 func TestDownloading(t *testing.T) {
-	targetUrl := "https://ve.media.tumblr.com/tumblr_pic5svrUUz1xmht6v.mp4"
+	targetUrl := "https://ve.media.tumblr.com/tumblr_pibhz3cGXj1xkl6g4.mp4"
 
 	if err := Download(targetUrl); err != nil {
 		t.Fatal(err)

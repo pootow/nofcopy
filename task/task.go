@@ -1,6 +1,9 @@
 package task
 
-import "sync"
+import (
+	"log"
+	"sync"
+)
 
 // Task is basic task
 type Task struct {
@@ -42,9 +45,11 @@ func (t *Task) Wait() {
 }
 
 func (t *Task) Add(w Work) {
+	log.Println("task added")
 	t.wg.Add(1)
 	go func() {
 		defer t.wg.Done()
 		w.Run()
+		log.Println("task finished")
 	}()
 }

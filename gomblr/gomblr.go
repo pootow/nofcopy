@@ -27,9 +27,7 @@ func DownloadPosts(concurrency string) {
 	}
 
 	con := int(con64)
-	for i := 0; i < con; i++ {
-		st.Add(works.NewDownloadPosts(i))
-	}
+	st.Add(works.NewDownloadPosts(con, st))
 
 	st.Wait()
 }

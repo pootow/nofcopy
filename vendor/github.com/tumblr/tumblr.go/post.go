@@ -358,7 +358,7 @@ func (p *PostRef) Delete() error {
 }
 
 // Utility function to create the proper instance of Post and return a reference to the generic interface
-func makePostFromType(t string) (PostInterface, error) {
+func MakePostFromType(t string) (PostInterface, error) {
 	switch t {
 	case "quote":
 		return &QuotePost{}, nil
@@ -394,7 +394,7 @@ func (p *PostRef) Unlike() error {
 func makePostsFromMinis(minis []MiniPost, client ClientInterface) []PostInterface {
 	posts := []PostInterface{}
 	for _, mini := range minis {
-		post, _ := makePostFromType(mini.Type)
+		post, _ := MakePostFromType(mini.Type)
 		post.GetSelf().client = client
 		posts = append(posts, post)
 	}

@@ -1,4 +1,4 @@
-package gomblr
+package extractors
 
 import (
 	"encoding/json"

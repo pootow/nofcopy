@@ -1,7 +1,7 @@
-package gomblr
+package extractors
 
 import (
-	"github.com/tumblr/tumblr.go"
+	. "github.com/tumblr/tumblr.go"
 	"regexp"
 )
 
@@ -12,7 +12,7 @@ type PostResourceExtractor interface {
 const HTTP_RESOURCE string = `http(s)?://[^\\\"'\<\?\&]+(\.jpg|\.png|\.gif|\.webp|\.mp4|\.amr|\.wav|\.3gp)`
 
 type gTextPost struct {
-	tumblr.TextPost
+	*TextPost
 }
 
 func (g *gTextPost) GetResources() []string {
@@ -33,7 +33,7 @@ func (g *gTextPost) GetResources() []string {
 }
 
 type gVideoPost struct {
-	tumblr.VideoPost
+	*VideoPost
 }
 
 func (g *gVideoPost) GetResources() []string {
@@ -41,7 +41,7 @@ func (g *gVideoPost) GetResources() []string {
 }
 
 type gPhotoPost struct {
-	tumblr.PhotoPost
+	*PhotoPost
 }
 
 func (g *gPhotoPost) GetResources() []string {
@@ -50,4 +50,28 @@ func (g *gPhotoPost) GetResources() []string {
 		photos[i] = photo.OriginalSize.Url
 	}
 	return photos
+}
+
+func GetExtractor(post PostInterface) PostResourceExtractor {
+	switch post.(type) {
+	case *TextPost:
+		text := &gTextPost{post.(*TextPost)}
+		return text
+	case *AnswerPost, *ChatPost, *LinkPost, *QuotePost:
+	case *PhotoPost:
+		photo := &gPhotoPost{post.(*PhotoPost)}
+		return photo
+	case *AudioPost:
+		audio := post.(*AudioPost)
+		println("audio url: ", audio.AudioUrl)
+		println("audio source url: ", audio.AudioSourceUrl)
+		println("caption: ", audio.Caption)
+		println("summary: ", audio.Summary)
+	case *VideoPost:
+		video := &gVideoPost{post.(*VideoPost)}
+		return video
+	default:
+		panic(post)
+	}
+	return nil
 }
