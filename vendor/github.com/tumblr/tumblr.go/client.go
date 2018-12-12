@@ -51,7 +51,7 @@ func jsonStringify(b interface{}) string {
 // Create a shallow copy of a params object
 func copyParams(src url.Values) url.Values {
 	dest := url.Values{}
-	for k,v := range src {
+	for k, v := range src {
 		dest[k] = v
 	}
 	return dest

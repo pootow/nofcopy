@@ -6,7 +6,7 @@ type Links struct {
 }
 
 type Link struct {
-	Href string `json:"href"`
-	Method string `json:"method"`
+	Href        string            `json:"href"`
+	Method      string            `json:"method"`
 	QueryParams map[string]string `json:"query_params"`
 }

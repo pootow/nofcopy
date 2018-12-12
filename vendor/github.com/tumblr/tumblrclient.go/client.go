@@ -17,8 +17,8 @@ const apiBase = "https://api.tumblr.com/v2/"
 type Client struct {
 	tumblr.ClientInterface
 	consumer *oauth1.Config
-	user *oauth1.Token
-	client *http.Client
+	user     *oauth1.Token
+	client   *http.Client
 }
 
 // Constructor with only the consumer key and secret
@@ -54,7 +54,7 @@ func (c *Client) Get(endpoint string) (tumblr.Response, error) {
 
 // Issue GET request to Tumblr API with param values
 func (c *Client) GetWithParams(endpoint string, params url.Values) (tumblr.Response, error) {
-	return getResponse(c.GetHttpClient().Get(createRequestURI(appendPath(apiBase,endpoint),params)))
+	return getResponse(c.GetHttpClient().Get(createRequestURI(appendPath(apiBase, endpoint), params)))
 }
 
 // Issue POST request to Tumblr API
@@ -151,7 +151,7 @@ func getResponse(resp *http.Response, e error) (tumblr.Response, error) {
 // Creates a PostRef out of an id and blog name
 func (c *Client) GetPost(id uint64, blogName string) (*tumblr.PostRef) {
 	return tumblr.NewPostRef(c, &tumblr.MiniPost{
-		Id: id,
+		Id:       id,
 		BlogName: blogName,
 	})
 }

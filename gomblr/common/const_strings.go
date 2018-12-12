@@ -1,5 +1,4 @@
-package gomblr
-
+package common
 
 const JsonString string = `{
   "meta": {

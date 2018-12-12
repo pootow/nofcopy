@@ -30,3 +30,7 @@ _testmain.go
 # ides
 .idea
 .vscode
+
+# compiled executable
+
+nofcopy

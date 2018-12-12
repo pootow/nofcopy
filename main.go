@@ -37,6 +37,10 @@ func main() {
 		if len(flag.Args()) > 0 {
 			gomblr.GetBlogPosts(flag.Args())
 		}
+	case "gd":
+		if len(flag.Args()) > 0 {
+			gomblr.DownloadPosts(flag.Arg(0))
+		}
 	}
 
 }

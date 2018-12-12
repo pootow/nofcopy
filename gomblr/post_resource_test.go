@@ -2,6 +2,7 @@ package gomblr
 
 import (
 	"encoding/json"
+	"github.com/pootow/nofcopy/gomblr/common"
 	"regexp"
 	"testing"
 )
@@ -103,7 +104,7 @@ func TestRegex(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	allString := regex.FindAllString(JsonString, -1)
+	allString := regex.FindAllString(common.JsonString, -1)
 	for _, String := range allString {
 		println(String)
 	}

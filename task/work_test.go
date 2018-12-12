@@ -9,7 +9,7 @@ import (
 
 func TestWaitWorkDone(t *testing.T) {
 	st := NewSimpleTask()
-	func(ws WorkScheduler) {
+	func(ws Scheduler) {
 		ws.Wait()
 	}(st)
 }
@@ -26,7 +26,7 @@ func (d *DummyWork) Run() {
 
 func TestAddWorkAndWaitAllDone(t *testing.T) {
 	st := NewSimpleTask()
-	func(xws XXXWorkScheduler) {
+	func(xws WorkScheduler) {
 		begin := time.Now()
 		xws.Add(&DummyWork{takes: time.Millisecond * 10})
 		xws.Wait()
@@ -40,7 +40,7 @@ func TestAddWorkAndWaitAllDone(t *testing.T) {
 
 func TestAddMultiWorkShouldWaitOnLongest(t *testing.T) {
 	st := NewSimpleTask()
-	func(xws XXXWorkScheduler) {
+	func(xws WorkScheduler) {
 		begin := time.Now()
 		xws.Add(&DummyWork{takes: time.Millisecond * 10})
 		xws.Add(&DummyWork{takes: time.Millisecond * 100})
@@ -63,7 +63,7 @@ func (*Echo) Run() {
 
 func TestManyKindsOfWorkShouldWork(t *testing.T) {
 	st := NewSimpleTask()
-	func(xws XXXWorkScheduler) {
+	func(xws WorkScheduler) {
 		xws.Add(&DummyWork{takes: time.Millisecond * 10})
 		echo := Echo("{}")
 		xws.Add(&echo)

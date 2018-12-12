@@ -1,11 +1,11 @@
 package task
 
-type WorkScheduler interface {
+type Scheduler interface {
 	Wait()
 }
 
-type XXXWorkScheduler interface {
-	WorkScheduler
+type WorkScheduler interface {
+	Scheduler
 	Add(Work)
 }
 

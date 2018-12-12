@@ -1,4 +1,4 @@
-package gomblr
+package common
 
 import (
 	"net/url"
@@ -25,19 +25,18 @@ func TestURLParsing(t *testing.T) {
 
 	println(targetURL.Path)
 
-	currentUser, err := user.Current()
+	appWorkingDir, err := GetAppWorkingDir()
 	if err != nil {
 		t.Fatal(err)
 	}
-	userHomePath := currentUser.HomeDir
 
-	basePath := "gomblr/videos/"
+	basePath := path.Join(appWorkingDir, "videos")
 
 	domain := targetURL.Hostname()
 
 	fileName := targetURL.Path
 
-	fileDir := path.Join(userHomePath, basePath, domain)
+	fileDir := path.Join(basePath, domain)
 
 	filePath := path.Join(fileDir, fileName)
 	println(filePath)

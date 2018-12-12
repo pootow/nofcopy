@@ -40,7 +40,6 @@ func (g *gVideoPost) GetResources() []string {
 	return []string{g.VideoUrl}
 }
 
-
 type gPhotoPost struct {
 	tumblr.PhotoPost
 }
@@ -52,4 +51,3 @@ func (g *gPhotoPost) GetResources() []string {
 	}
 	return photos
 }
-
