@@ -1,11 +1,12 @@
 package gomblr
 
 import (
+	"log"
+	"strconv"
+
 	. "github.com/pootow/nofcopy/gomblr/client"
 	"github.com/pootow/nofcopy/gomblr/works"
 	"github.com/pootow/nofcopy/task"
-	"log"
-	"strconv"
 )
 
 func GetBlogPosts(blogs []string) {
@@ -30,7 +31,7 @@ func DownloadPosts(concurrency string, count string) {
 	countInt, err := strconv.Atoi(count)
 
 	for i := 0; i < con; i++ {
-		st.Add(works.NewDownloadPosts(countInt, st))
+		st.Add(works.NewDownloadPosts(countInt, i, st))
 	}
 
 	st.Wait()

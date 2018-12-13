@@ -2,10 +2,6 @@ package works
 
 import (
 	"encoding/json"
-	"github.com/pootow/nofcopy/gomblr/common"
-	"github.com/pootow/nofcopy/gomblr/extractors"
-	"github.com/pootow/nofcopy/task"
-	"github.com/tumblr/tumblr.go"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -13,20 +9,30 @@ import (
 	"path"
 	"path/filepath"
 	"time"
+
+	"github.com/pootow/nofcopy/gomblr/common"
+	"github.com/pootow/nofcopy/gomblr/extractors"
+	"github.com/pootow/nofcopy/task"
+	tumblr "github.com/tumblr/tumblr.go"
 )
 
 type DownloadPosts struct {
 	scheduler task.WorkScheduler
 	Count     int
+	index     int
+	batchSize int
 }
 
-func NewDownloadPosts(count int, scheduler task.WorkScheduler) *DownloadPosts {
+func NewDownloadPosts(count int, index int, scheduler task.WorkScheduler) *DownloadPosts {
 	//TODO should I move all locked post back to posts???
-	return &DownloadPosts{scheduler: scheduler, Count: count}
+	d := &DownloadPosts{scheduler: scheduler, Count: count, index: index}
+	d.batchSize = 1
+	return d
 }
 
 func (d *DownloadPosts) Run() {
-	for i := 0; i < d.Count; i++ {
+	for i := 0; i < d.Count; i += d.batchSize {
+		log.Println("Download posts batch, worker: ", d.index, " size: ", d.batchSize)
 		waitRand := rand.Intn(10000000) % 2000
 		time.Sleep(time.Millisecond * time.Duration(waitRand))
 		posts, err := d.lockPosts()
@@ -44,8 +50,8 @@ func (d *DownloadPosts) Run() {
 
 func (d *DownloadPosts) lockPosts() ([]*downloadPost, error) {
 	// TODO load locked posts first
-	downloadPosts := make([]*downloadPost, d.Count)
-	postPaths, err := getSomePostFile(d.Count)
+	downloadPosts := make([]*downloadPost, d.batchSize)
+	postPaths, err := getSomePostFile(d.batchSize)
 	if err != nil {
 		return nil, err
 	}

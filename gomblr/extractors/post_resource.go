@@ -1,8 +1,9 @@
 package extractors
 
 import (
-	. "github.com/tumblr/tumblr.go"
 	"regexp"
+
+	. "github.com/tumblr/tumblr.go"
 )
 
 type PostResourceExtractor interface {
@@ -85,7 +86,9 @@ func GetExtractor(post PostInterface) PostResourceExtractor {
 		panic(post)
 	}
 
+	println("==================================================")
 	println(post.GetSelf().Summary)
+	println("==================================================")
 
 	return extractor
 }
