@@ -72,7 +72,7 @@ func targetFileDownloaded(filePath string, length int64) (bool, error) {
 	}
 	diskLength := info.Size()
 
-	if diskLength == length {
+	if diskLength >= length {
 		return true, nil
 	}
 	return false, nil
