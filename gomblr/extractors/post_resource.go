@@ -1,7 +1,9 @@
 package extractors
 
 import (
+	"bufio"
 	"regexp"
+	"strings"
 
 	. "github.com/tumblr/tumblr.go"
 )
@@ -87,7 +89,11 @@ func GetExtractor(post PostInterface) PostResourceExtractor {
 	}
 
 	println("==================================================")
-	println(post.GetSelf().Summary)
+	reader := strings.NewReader(post.GetSelf().Summary)
+	scanner := bufio.NewScanner(reader)
+	for ; scanner.Scan(); {
+		println("|", scanner.Text())
+	}
 	println("==================================================")
 
 	return extractor
