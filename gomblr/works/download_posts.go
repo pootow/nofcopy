@@ -8,9 +8,11 @@ import (
 	"github.com/tumblr/tumblr.go"
 	"io/ioutil"
 	"log"
+	"math/rand"
 	"os"
 	"path"
 	"path/filepath"
+	"time"
 )
 
 type DownloadPosts struct {
@@ -25,10 +27,11 @@ func NewDownloadPosts(count int, scheduler task.WorkScheduler) *DownloadPosts {
 
 func (d *DownloadPosts) Run() {
 	for i := 0; i < d.Count; i++ {
+		waitRand := rand.Intn(10000000) % 2000
+		time.Sleep(time.Millisecond * time.Duration(waitRand))
 		posts, err := d.lockPosts()
 		if err != nil {
 			log.Println("downloading error when lock post: ", err)
-			// TODO wait for a random delay
 			i--
 			continue
 		}
