@@ -66,7 +66,6 @@ func GetExtractor(post PostInterface) PostResourceExtractor {
 	case *TextPost:
 		text := &gTextPost{post.(*TextPost)}
 		extractor = text
-		post = text
 	case *AnswerPost, *ChatPost, *LinkPost, *QuotePost:
 		extractor = noop
 	case *PhotoPost:

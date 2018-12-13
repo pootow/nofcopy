@@ -28,7 +28,9 @@ func (d *DownloadPosts) Run() {
 		posts, err := d.lockPosts()
 		if err != nil {
 			log.Println("downloading error when lock post: ", err)
-			return
+			// TODO wait for a random delay
+			i--
+			continue
 		}
 		for _, post := range posts {
 			//d.scheduler.Add(post)
