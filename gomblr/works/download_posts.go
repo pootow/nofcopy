@@ -24,7 +24,7 @@ type DownloadPosts struct {
 }
 
 func NewDownloadPosts(count int, index int, scheduler task.WorkScheduler) *DownloadPosts {
-	//TODO should I move all locked post back to posts???
+	//TODO should I move all locked post back to posts??? Noop for now, move it manually.
 	d := &DownloadPosts{scheduler: scheduler, Count: count, index: index}
 	d.batchSize = 1
 	return d
