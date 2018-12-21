@@ -7,7 +7,7 @@ import (
 
 func TestNewDownloadPosts(t *testing.T) {
 	st := task.NewSimpleTask()
-	posts := NewDownloadPosts(1, st)
+	posts := NewDownloadPosts(1, 1, st)
 	st.Add(posts)
 	st.Wait()
 }

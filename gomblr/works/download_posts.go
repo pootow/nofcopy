@@ -13,7 +13,7 @@ import (
 	"github.com/pootow/nofcopy/gomblr/common"
 	"github.com/pootow/nofcopy/gomblr/extractors"
 	"github.com/pootow/nofcopy/task"
-	tumblr "github.com/tumblr/tumblr.go"
+	"github.com/tumblr/tumblr.go"
 )
 
 type DownloadPosts struct {
@@ -26,7 +26,7 @@ type DownloadPosts struct {
 func NewDownloadPosts(count int, index int, scheduler task.WorkScheduler) *DownloadPosts {
 	//TODO should I move all locked post back to posts???
 	d := &DownloadPosts{scheduler: scheduler, Count: count, index: index}
-	d.batchSize = 1
+	d.batchSize = 2
 	return d
 }
 

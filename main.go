@@ -33,6 +33,8 @@ func main() {
 		} else {
 			fmt.Println("please specify a path.")
 		}
+	case "gf":
+		gomblr.GetFavPosts()
 	case "gg":
 		if len(flag.Args()) > 0 {
 			gomblr.GetBlogPosts(flag.Args())
@@ -41,6 +43,8 @@ func main() {
 		if len(flag.Args()) > 0 {
 			gomblr.DownloadPosts(flag.Arg(0), flag.Arg(1))
 		}
+	case "gdash":
+		gomblr.GetAllDashbordPosts()
 	}
 
 }
