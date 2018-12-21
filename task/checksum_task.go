@@ -34,7 +34,7 @@ func (t *walker) onFile(file Item) {
 	hash := utils.GetSHA1Hash(path)
 	fmt.Println(file, ": ", hash)
 
-	hashFile, err := os.Create(path + ".sha1.sum")
+	hashFile, err := os.Create(path + hash + ".sha1.sum")
 	if err != nil {
 		fmt.Println("error when writing hash file: ", err)
 		return
@@ -42,5 +42,4 @@ func (t *walker) onFile(file Item) {
 	defer hashFile.Close()
 	hashFile.WriteString(fmt.Sprintln("sha1 ", hash, " ", time.Now().UnixNano()))
 
-	os.OpenFile(path, os.O_APPEND, os.ModeAppend)
 }

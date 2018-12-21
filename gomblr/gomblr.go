@@ -36,3 +36,21 @@ func DownloadPosts(concurrency string, count string) {
 
 	st.Wait()
 }
+
+func GetFavPosts() {
+	st := task.NewSimpleTask()
+	client := NewGomblrClient()
+
+	st.Add(works.NewLikes(client))
+
+	st.Wait()
+}
+
+func GetAllDashbordPosts() {
+	st := task.NewSimpleTask()
+	client := NewGomblrClient()
+
+	st.Add(works.NewDashboard(client))
+
+	st.Wait()
+}

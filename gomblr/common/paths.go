@@ -23,7 +23,7 @@ func GetUserHomeDir() (string, error) {
 	return currentUser.HomeDir, nil
 }
 
-func GetAndMakeInAppWorkingDir(sub ... string) (string, error) {
+func GetAndMakeInAppWorkingDir(sub ...string) (string, error) {
 	dir, err := GetAppWorkingDir()
 	if err != nil {
 		return "", err
