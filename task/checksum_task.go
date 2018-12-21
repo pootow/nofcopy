@@ -21,8 +21,12 @@ func NewChecksumTask() *ChecksumTask {
 }
 
 // Checksum shows sha1 checksum of all files for a path
-func (t *ChecksumTask) Checksum(root string) {
-	t.Walk(Item{item: root})
+func (t *ChecksumTask) Checksum(root string, sync bool) {
+	if sync {
+		t.WalkSync(Item{item: root})
+	} else {
+		t.Walk(Item{item: root})
+	}
 }
 
 type walker struct {

@@ -29,9 +29,13 @@ func (t *Task) addItem(item Item, callback fn) {
 
 func (t *Task) onItemAsync(callback fn) {
 	go func() {
-		defer t.wg.Done()
-		callback()
+		t.onItemSync(callback)
 	}()
+}
+
+func (t *Task) onItemSync(callback fn) {
+	defer t.wg.Done()
+	callback()
 }
 
 func (t *Task) waitAllDone(callback fn) {

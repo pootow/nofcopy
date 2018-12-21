@@ -70,6 +70,34 @@ func (t *DirWalkTask) Walk(root Item) {
 	})
 }
 
+
+// Walk all of the files of a path
+func (t *DirWalkTask) WalkSync(root Item) {
+	fmt.Println("checksum: ", root)
+
+	go func() {
+		for {
+			select {
+			case path := <-t.paths:
+				t.onItemAsync(func() {
+					t.forPath(path)
+				})
+			case dir := <-t.dirs:
+				t.onItemAsync(func() {
+					t.forDir(dir)
+				})
+			case file := <-t.files:
+				t.onItemSync(func() {
+					t.walker.onFile(file)
+				})
+			}
+		}
+	}()
+	t.waitAllDone(func() {
+		t.paths <- root
+	})
+}
+
 func (t *DirWalkTask) forPath(path Item) {
 	info, err := os.Lstat(path.item.(string))
 	if err != nil {
