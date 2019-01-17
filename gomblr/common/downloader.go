@@ -68,7 +68,7 @@ func Download(targetUrl string) error {
 func targetFileDownloaded(filePath string, length int64) (bool, error) {
 	info, err := os.Stat(filePath)
 	if err != nil {
-		return false, nil
+		return false, err
 	}
 	diskLength := info.Size()
 
